@@ -10,15 +10,25 @@ class pacemaker(tk.Tk):
         
         create_db()
         
-        self.current_frame = None
-        self.switch_frame(login_frame)
+        container = ttk.Frame(self)
+        container.pack(fill="both", expand=True)
+
+        self.frames = {}
+        
+        for i in (login_frame, registration_frame):
+            frame = i(container, self)
+            self.frames[i] = frame
+            frame.grid(row=0, column=0, sticky="nsew")
+        
+    #     self.current_frame = None
+    #     self.switch_frame(login_frame)
     
-    def switch_frame(self, frame):
-        if self.current_frame is not None:
-            self.current_frame.destroy()
+    # def switch_frame(self, frame):
+    #     if self.current_frame is not None:
+    #         self.current_frame.destroy()
             
-        self.current_frame = frame(self)
-        self.current_frame.pack(fill = "both", expand = True)
+    #     self.current_frame = frame(self)
+    #     self.current_frame.pack(fill = "both", expand = True)
                 
 class registration_frame(ttk.Frame):
     def __init__(self, master):
